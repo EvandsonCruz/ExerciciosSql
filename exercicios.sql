@@ -1,26 +1,26 @@
--- Fazer um algoritmo que, dado 1 número, mostre se é múltiplo de 2,3,5 ou nenhum deles---------------------------------------------
+-- Fazer um algoritmo que, dado 1 nÃºmero, mostre se Ã© mÃºltiplo de 2,3,5 ou nenhum deles---------------------------------------------
 
 declare @num char(1) set @num = 4
 if(@num % 2 = 0)
 begin
-	print 'Múltiplo de 2'
+	print 'MÃºltiplo de 2'
 end
 else
 if(@num % 3 = 0)
 begin
-	print 'Múltiplo de 3'
+	print 'MÃºltiplo de 3'
 end
 else
 if(@num % 5 = 0)
 begin
-	print 'Múltiplo de 5'
+	print 'MÃºltiplo de 5'
 end
 else
 begin
-	print 'Não é múltiplo de 2,3 ou 5'
+	print 'NÃ£o Ã© mÃºltiplo de 2,3 ou 5'
 end
 
- -- Fazer um algoritmo que, dados 3 números, mostre o maior e o menor-----------------------------------------------------------------
+ -- Fazer um algoritmo que, dados 3 nÃºmeros, mostre o maior e o menor-----------------------------------------------------------------
 
  declare @num1 char(1), @num2 char(1), @num3 char(1), @maior char(1), @menor char(1)
  set @num1 = 3 set @num2 = 2 set @num3 = 1 set @maior = @num1 set @menor = @num1
@@ -48,8 +48,10 @@ end
  begin
 	set @menor = @num3
  end
- print 'O menor é: ' + @menor + '   |  O maior é: ' + @maior
- --Fazer um algoritmo que calcule os 15 primeiros termos da série de Fibonacci e a soma dos 15 primeiros termos----------------------------
+ print 'O menor Ã©: ' + @menor + '   |  O maior Ã©: ' + @maior
+ 
+
+ --Fazer um algoritmo que calcule os 15 primeiros termos da sÃ©rie de Fibonacci e a soma dos 15 primeiros termos----------------------------
 
  declare @i int, @v1 int, @v2 int, @v3 int, @soma int
  set @i = 1 set @v1 = -1 set @v2 = 1 set @soma = 0
@@ -62,7 +64,8 @@ end
 	set @i = @i + 1
  end
  print 'Soma dos 15 primeiros da sequencia de fibonacci: ' + cast(@soma as varchar(10))
- -- Fazer um algoritmo que separa uma frase, imprimindo todas as letras em maiúsculo e, depois imprimindo todas em minúsculo-----------------
+
+ -- Fazer um algoritmo que separa uma frase, imprimindo todas as letras em maiÃºsculo e, depois imprimindo todas em minÃºsculo-----------------
 
  declare @frase varchar(50), @maiusculas varchar(50), @minusculas varchar(50), @letra varchar(1)
  declare @i int set @i = 1
@@ -81,23 +84,23 @@ end
  end
  set @i = @i + 1
  end
- print 'Letras maiúsculas: ' + replace(@maiusculas,0,'')
- print 'Letras minúsculas: ' + replace(@minusculas,0,'')
+ print 'Letras maiÃºsculas: ' + replace(@maiusculas,0,'')
+ print 'Letras minÃºsculas: ' + replace(@minusculas,0,'')
  
--- Fazer um algoritmo que verifica, dada uma palavra, se é, ou não, palíndromo------------------------------------------------------------------
+-- Fazer um algoritmo que verifica, dada uma palavra, se Ã©, ou nÃ£o, palÃ­ndromo------------------------------------------------------------------
 
 declare @palavra varchar(30)
 set @palavra = 'arara'
 if (@palavra = reverse(@palavra))
 begin
-	print @palavra + ' é palíndromo'
+	print @palavra + ' Ã© palÃ­ndromo'
 end
 else
 begin
-	print @palavra + ' não é palíndromo'
+	print @palavra + ' nÃ£o Ã© palÃ­ndromo'
 end
 
---Fazer um algoritmo que, dado um CPF diga se é válido--------------------------------------------------------------------------------------------
+--Fazer um algoritmo que, dado um CPF diga se Ã© vÃ¡lido--------------------------------------------------------------------------------------------
 
 declare @cpf varchar(11), @i int, @j int, @soma varchar(3), @dv1 bit, @dv2 bit
 set @i = 1 set @j = 10 set @soma = 0 set @dv1 = 0 set @dv2 = 0
@@ -162,11 +165,11 @@ begin
 	end
 	if(@j = 11)
 	begin
-		print 'CPF inválido'
+		print 'CPF invÃ¡lido'
 	end
 	else
 	begin
-		print 'CPF válido'
+		print 'CPF vÃ¡lido'
 	end
 end
 
