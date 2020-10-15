@@ -179,10 +179,12 @@ begin
 
 			 update nota2 set maior = @maior, menor = @menor, total_quesito = @total
 			 where id_escola = @idEscola and id_quesito = @idQuesito
+
+			 update escola set total_pontos = (select sum(total_quesito) from nota2 where id_escola = @idEscola)
 			set @saida = 'ID escola: ' + cast(@idEscola as varchar(2))  + 
 			' || ID quesito: ' + cast(@idQuesito as varchar(2)) + '|| Maior: ' + cast(@maior as varchar(4)) + 
 			'|| Menor: ' + cast(@menor as varchar(4)) +	'|| Total_quesito: ' + cast(@total as varchar(4)) +
-			' || Atualizado com sucesso. Tabela: Nota2 || Procedure: sp_inserenota2'
+			' || Atualizado com sucesso. Tabelas: Nota2 e Escola|| Procedure: sp_inserenota2'
 			end
 		end
 		else if ((select nota4 from nota2 where id_escola = @idEscola) is null)
@@ -229,9 +231,11 @@ begin
 
 			 update nota2 set maior = @maior, menor = @menor, total_quesito = @total 
 			 where id_escola = @idEscola and id_quesito = @idQuesito
+
+			 update escola set total_pontos = (select sum(total_quesito) from nota2 where id_escola = @idEscola)
 			set @saida = 'ID escola: ' + cast(@idEscola as varchar(2))  + 
 			' || ID quesito: ' + cast(@idQuesito as varchar(2)) + '|| Maior: ' + cast(@maior as varchar(4)) + '|| Menor: ' + cast(@menor as varchar(4))+
-			 '|| Total_quesito: ' + cast(@total as varchar(4))+ ' || Atualizado com sucesso. Tabela: Nota2 || Procedure: sp_inserenota2'
+			 '|| Total_quesito: ' + cast(@total as varchar(4))+ ' || Atualizado com sucesso. Tabelas: Nota2 e Escola || Procedure: sp_inserenota2'
 			end
 		end
 		else if ((select nota5 from nota2 where id_escola = @idEscola) is null)
@@ -278,10 +282,12 @@ begin
 
 			 update nota2 set maior = @maior, menor = @menor, total_quesito = @total 
 			 where id_escola = @idEscola and id_quesito = @idQuesito
+
+			 update escola set total_pontos = (select sum(total_quesito) from nota2 where id_escola = @idEscola)
 			set @saida = 'ID escola: ' + cast(@idEscola as varchar(2))  + 
 			' || ID quesito: ' + cast(@idQuesito as varchar(2)) + '|| Maior: ' + cast(@maior as varchar(4)) + 
 			'|| Menor: ' + cast(@menor as varchar(4)) +	'|| Total_quesito: ' + cast(@total as varchar(4)) + 
-			' || Atualizado com sucesso. Tabela: Nota2 || Procedure: sp_inserenota2'
+			' || Atualizado com sucesso. Tabela: Nota2 e Escola || Procedure: sp_inserenota2'
 			end
 		
 		end
@@ -293,10 +299,11 @@ begin
 end
 
 declare @out varchar(max)
-exec sp_inserenota2 4,1,9,@out output
+exec sp_inserenota2 5,1,8,@out output
 print @out
 
-select * from nota2
+select * from escola where id = 5
+select * from nota2 where id_escola = 5
 
 
 --se maior q 3 inserir no total_pontos da tabela escola tirando a maior e menor
