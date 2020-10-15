@@ -120,8 +120,8 @@ begin
 	begin
 		if ((select count(id_escola) from nota2 where id_escola = @idEscola)=0)
 		begin
-			insert into nota2(id_escola,id_quesito,nota1,total_quesito) 
-			values (@idEscola,@idQuesito,cast(@nota as decimal (4,1)),cast(@total as decimal (4,1)))
+			insert into nota2(id_escola,id_quesito,nota1) 
+			values (@idEscola,@idQuesito,cast(@nota as decimal (4,1)))
 			set @saida = 'ID escola: ' + cast(@idEscola as varchar(2))  +   
 			' || ID quesito: ' + cast(@idQuesito as varchar(2)) + '|| Nota: ' + @nota + 
 			' || Inserido com sucesso. Tabela: Nota2 || Procedure: sp_inserenota2'
@@ -174,11 +174,15 @@ begin
 			SELECT MIN(nota5) FROM nota2 where id_escola = @idEscola and id_quesito = @idQuesito
 			) AS MENOR   )
 
-			 update nota2 set maior = @maior, menor = @menor 
+			declare @total decimal(4,1)
+			set @total = (select nota1 + nota2 + @nota - @maior - @menor from nota2 where id_escola = @idEscola and id_quesito = @idQuesito) 
+
+			 update nota2 set maior = @maior, menor = @menor, total_quesito = @total
 			 where id_escola = @idEscola and id_quesito = @idQuesito
 			set @saida = 'ID escola: ' + cast(@idEscola as varchar(2))  + 
 			' || ID quesito: ' + cast(@idQuesito as varchar(2)) + '|| Maior: ' + cast(@maior as varchar(4)) + 
-			'|| Menor: ' + cast(@menor as varchar(4)) +	' || Atualizado com sucesso. Tabela: Nota2 || Procedure: sp_inserenota2'
+			'|| Menor: ' + cast(@menor as varchar(4)) +	'|| Total_quesito: ' + cast(@total as varchar(4)) +
+			' || Atualizado com sucesso. Tabela: Nota2 || Procedure: sp_inserenota2'
 			end
 		end
 		else if ((select nota4 from nota2 where id_escola = @idEscola) is null)
@@ -221,11 +225,13 @@ begin
 			SELECT MIN(nota5) FROM nota2 where id_escola = @idEscola and id_quesito = @idQuesito
 			) AS MENOR   )
 
-			 update nota2 set maior = @maior, menor = @menor 
+			set @total = (select nota1 + nota2 + nota3 + @nota - @maior - @menor from nota2 where id_escola = @idEscola and id_quesito = @idQuesito) 
+
+			 update nota2 set maior = @maior, menor = @menor, total_quesito = @total 
 			 where id_escola = @idEscola and id_quesito = @idQuesito
 			set @saida = 'ID escola: ' + cast(@idEscola as varchar(2))  + 
 			' || ID quesito: ' + cast(@idQuesito as varchar(2)) + '|| Maior: ' + cast(@maior as varchar(4)) + '|| Menor: ' + cast(@menor as varchar(4))+
-			' || Atualizado com sucesso. Tabela: Nota2 || Procedure: sp_inserenota2'
+			 '|| Total_quesito: ' + cast(@total as varchar(4))+ ' || Atualizado com sucesso. Tabela: Nota2 || Procedure: sp_inserenota2'
 			end
 		end
 		else if ((select nota5 from nota2 where id_escola = @idEscola) is null)
@@ -268,11 +274,14 @@ begin
 			SELECT MIN(nota5) FROM nota2 where id_escola = @idEscola and id_quesito = @idQuesito
 			) AS MENOR   )
 
-			 update nota2 set maior = @maior, menor = @menor 
+			set @total = (select nota1 + nota2 + nota3 + nota4 + @nota - @maior - @menor from nota2 where id_escola = @idEscola and id_quesito = @idQuesito) 
+
+			 update nota2 set maior = @maior, menor = @menor, total_quesito = @total 
 			 where id_escola = @idEscola and id_quesito = @idQuesito
 			set @saida = 'ID escola: ' + cast(@idEscola as varchar(2))  + 
 			' || ID quesito: ' + cast(@idQuesito as varchar(2)) + '|| Maior: ' + cast(@maior as varchar(4)) + 
-			'|| Menor: ' + cast(@menor as varchar(4)) +	' || Atualizado com sucesso. Tabela: Nota2 || Procedure: sp_inserenota2'
+			'|| Menor: ' + cast(@menor as varchar(4)) +	'|| Total_quesito: ' + cast(@total as varchar(4)) + 
+			' || Atualizado com sucesso. Tabela: Nota2 || Procedure: sp_inserenota2'
 			end
 		
 		end
@@ -284,7 +293,7 @@ begin
 end
 
 declare @out varchar(max)
-exec sp_inserenota2 1,1,5,@out output
+exec sp_inserenota2 4,1,9,@out output
 print @out
 
 select * from nota2
