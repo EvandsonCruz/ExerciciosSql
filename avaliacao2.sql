@@ -423,6 +423,7 @@ create alter procedure sp_insere_bateria_inicial(@id_prova int, @saida varchar(m
 as
 begin
 declare @i int, @j int set @i = 1 set @j = 1
+set @saida = ''
 while(@i <= 32)
 begin
 	if(
@@ -470,17 +471,17 @@ begin
 			begin
 				update atleta_prova set recorde_mundial = 'sim' where id_atleta = @i and bateria = 'inicial' and id_prova = @id_prova
 				--poderia alterar a tabela prova
-				set @saida = 'recorde mundial quebrado'
+				set @saida += 'recorde mundial quebrado' + char(13)
 				print @saida
 			end
 			if (@concatenacao < (select recorde_evento from prova where id = @id_prova))
 			begin
 				update atleta_prova set recorde_evento = 'sim' where id_atleta = @i and bateria = 'inicial' and id_prova = @id_prova
 				--poderia alterar a tabela prova
-				set @saida = 'recorde do evento quebrado'
+				set @saida += 'recorde do evento quebrado' + char(13)
 				print @saida
 			end
-			set @saida = @concatenacao + ' inserido com sucesso na tabela atleta_prova || procedure: sp_insere_bateria_inicial'
+			set @saida += @concatenacao + ' inserido com sucesso na tabela atleta_prova || procedure: sp_insere_bateria_inicial' + char(13)
 			print @saida
 		end
 
@@ -573,20 +574,20 @@ begin
 			) AS MELHOR   )
 
 		update atleta_prova set melhor = @melhor where id_atleta = @i and bateria = 'inicial' and id_prova = @id_prova
-		set @saida = 'O melhor resultado do atleta id ' + cast(@i as varchar(2)) + ' foi ' + cast(@melhor as varchar(5))
+		set @saida += 'O melhor resultado do atleta id ' + cast(@i as varchar(2)) + ' foi ' + cast(@melhor as varchar(5)) + char(13)
 		print @saida
 		if (@melhor > (select recorde_mundial from prova where id = @id_prova))
 			begin
 				update atleta_prova set recorde_mundial = 'sim' where id_atleta = @i and bateria = 'inicial' and id_prova = @id_prova
 				--poderia alterar a tabela prova
-				set @saida = 'recorde mundial quebrado'
+				set @saida += 'recorde mundial quebrado' + char(13)
 				print @saida
 			end
 			if (@melhor > (select recorde_evento from prova where id = @id_prova))
 			begin
 				update atleta_prova set recorde_evento = 'sim' where id_atleta = @i and bateria = 'inicial' and id_prova = @id_prova
 				--poderia alterar a tabela prova
-				set @saida = 'recorde do evento quebrado'
+				set @saida += 'recorde do evento quebrado' + char(13)
 				print @saida
 			end
 
@@ -608,7 +609,7 @@ begin
 		WHERE rownum = @i)
 
 		insert into atleta_prova(id_atleta, id_prova,bateria) values(@id,@id_prova,'final')	
-		set @saida = 'atleta id ' + cast(@id AS varchar(2)) + ' foi classificado para a bateria final'
+		set @saida += 'atleta id ' + cast(@id AS varchar(2)) + ' foi classificado para a bateria final' + char(13)
 		print @saida
 		set @i = @i + 1
 	end	
@@ -625,7 +626,7 @@ begin
 		WHERE rownum = @i)
 
 		insert into atleta_prova(id_atleta, id_prova,bateria) values(@id,@id_prova,'final')	
-		set @saida = 'atleta id ' + cast(@id AS varchar(2)) + ' foi classificado para a bateria final'
+		set @saida += 'atleta id ' + cast(@id AS varchar(2)) + ' foi classificado para a bateria final' + char(13)
 		print @saida
 		set @i = @i + 1
 	end	
@@ -640,6 +641,7 @@ create alter procedure sp_insere_bateria_final(@id_prova int, @saida varchar(max
 as
 begin
 declare @i int, @j int set @i = 1 set @j = 1
+set @saida = ''
 while(@i <= 32)
 begin
 	if(
@@ -687,17 +689,17 @@ begin
 			begin
 				update atleta_prova set recorde_mundial = 'sim' where id_atleta = @i and bateria = 'final' and id_prova = @id_prova
 				--poderia alterar a tabela prova
-				set @saida = 'recorde mundial quebrado'
+				set @saida += 'recorde mundial quebrado' + char(13)
 				print @saida
 			end
 			if (@concatenacao < (select recorde_evento from prova where id = @id_prova))
 			begin
 				update atleta_prova set recorde_evento = 'sim' where id_atleta = @i and bateria = 'final' and id_prova = @id_prova
 				--poderia alterar a tabela prova
-				set @saida = 'recorde do evento quebrado'
+				set @saida += 'recorde do evento quebrado' + char(13)
 				print @saida
 			end
-			set @saida = @concatenacao + ' inserido com sucesso na tabela atleta_prova || procedure: sp_insere_bateria_final'
+			set @saida += @concatenacao + ' inserido com sucesso na tabela atleta_prova || procedure: sp_insere_bateria_final' + char(13)
 			print @saida
 		end
 
@@ -790,20 +792,20 @@ begin
 			) AS MELHOR   )
 
 		update atleta_prova set melhor = @melhor where id_atleta = @i and bateria = 'final' and id_prova = @id_prova
-		set @saida = 'O melhor resultado do atleta id ' + cast(@i as varchar(2)) + ' foi ' + cast(@melhor as varchar(5))
+		set @saida += 'O melhor resultado do atleta id ' + cast(@i as varchar(2)) + ' foi ' + cast(@melhor as varchar(5)) + char(13)
 		print @saida
 		if (@melhor > (select recorde_mundial from prova where id = @id_prova))
 			begin
 				update atleta_prova set recorde_mundial = 'sim' where id_atleta = @i and bateria = 'final' and id_prova = @id_prova
 				--poderia alterar a tabela prova
-				set @saida = 'recorde mundial quebrado'
+				set @saida += 'recorde mundial quebrado' + char(13)
 				print @saida
 			end
 			if (@melhor > (select recorde_evento from prova where id = @id_prova))
 			begin
 				update atleta_prova set recorde_evento = 'sim' where id_atleta = @i and bateria = 'final' and id_prova = @id_prova
 				--poderia alterar a tabela prova
-				set @saida = 'recorde do evento quebrado'
+				set @saida += 'recorde do evento quebrado' + char(13)
 				print @saida
 			end
 
@@ -819,7 +821,7 @@ select * from atleta_prova where bateria = 'final' and id_prova = 2 order by mel
 select * from prova where id = 2
 
 declare @out varchar(max)
-exec sp_insere_bateria_final 2,@out
+exec sp_insere_bateria_inicial 1,@out
 
 select * from prova
 
